@@ -84,15 +84,16 @@ func s:filterNames(id, key)
       let update_popup = 1
     endif
     let key_handled = 1
-  elseif a:key == "\<C-F>" || a:key == "\<C-B>"
-    call win_execute(s:popup_winid, 'normal! ' .. a:key)
-    let key_handled = 1
-  elseif a:key == "\<Up>"
-        \ || a:key == "\<Down>"
+  elseif a:key == "\<C-F>"
+        \ || a:key == "\<C-B>"
         \ || a:key == "<PageUp>"
         \ || a:key == "<PageDown>"
         \ || a:key == "<C-Home>"
         \ || a:key == "<C-End>"
+    call win_execute(s:popup_winid, 'normal! ' .. a:key)
+    let key_handled = 1
+  elseif a:key == "\<Up>"
+        \ || a:key == "\<Down>"
     " Use native Vim handling of these keys
     let key_handled = 0
   elseif a:key =~ '\f' || a:key == "\<Space>"
