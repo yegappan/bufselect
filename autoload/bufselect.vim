@@ -1,7 +1,7 @@
 " File: bufselect.vim
 " Author: Yegappan Lakshmanan (yegappan AT yahoo DOT com)
 " Version: 1.0
-" Last Modified: May 5, 2020
+" Last Modified: May 14, 2020
 "
 " Plugin to display the list of buffers in a popup menu
 "
@@ -47,6 +47,14 @@ func s:editBuffer(id, result)
   catch
     " ignore exceptions
   endtry
+endfunc
+
+" Sort two buffer names by the lastused timestamp, so that the latest used
+" buffer is at to the top
+func s:sortByLastUsed(i1, i2)
+  let v1 = a:i1.lastused
+  let v2 = a:i2.lastused
+  return v1 == v2 ? 0 : v1 < v2 ? 1 : -1
 endfunc
 
 " Convert each file name in the items List into <filename> (<dirname>) format.
@@ -149,13 +157,18 @@ func bufselect#showMenu(pat)
   " Get the list of buffer names to display. Use only listed buffers.
   let filter_cmd = 'v:val.name != ""'
   if a:pat != ''
-    let filter_cmd ..= ' && v:val.name =~# a:pat'
+    " Filter the buffer names using the user specified pattern (if any)
+    let regex_pat = glob2regpat(a:pat)
+    let filter_cmd ..= ' && v:val.name =~# regex_pat'
   endif
   let l = filter(getbufinfo({'buflisted' : 1}), filter_cmd)
   if empty(l)
     echohl Error | echo "No buffers found" | echohl None
     return
   endif
+
+  " Sort the buffer names by last access timestamp
+  call sort(l, 's:sortByLastUsed')
 
   " Expand the file paths and reduce it relative to the home and current
   " directories
