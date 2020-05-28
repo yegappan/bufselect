@@ -29,11 +29,17 @@ The Github repository for the Buffer Selector plugin is available at:
 ==============================================================================
 2. Installation					*bufselect-installation*
 
-Clone the github repository for this plugin into the Vim pack directory.
+To install this plugin on Linux, MacOS and other Unix-like systems:
 >
-    $ mkdir -p $HOME/.vim/pack/downloads/opt
-    $ cd $HOME/.vim/pack/downloads/opt
+    $ mkdir -p ~/.vim/pack/downloads/opt
+    $ cd ~/.vim/pack/downloads/opt
     $ git clone https://github.com/yegappan/bufselect
+<
+To install this plugin on MS-Windows:
+>
+    C:\> mkdir %HOMEPATH%\vimfiles\pack\downloads\opt
+    C:\> cd %HOMEPATH%\vimfiles\pack\downloads\opt
+    C:\> git clone https://github.com/yegappan/bufselect
 <
 To load the plugin, add the following command to the ~/.vimrc file:
 >
@@ -54,7 +60,7 @@ cursor will move to that window.  If the buffer it not present in any of the
 windows, then the selected buffer will be opened in the current window.  You
 can use the up and down arrow keys to move the currently selected entry in the
 popup menu. The buffer names in the popup menu are sorted by the lastused
-timestamp.
+time stamp.
 
 In the popup menu, you can type a series of characters to narrow down the list
 of displayed buffer names. The characters entered so far is displayed in the
