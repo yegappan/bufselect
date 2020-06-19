@@ -2,7 +2,7 @@
 
 Author: Yegappan Lakshmanan  (yegappan AT yahoo DOT com)
 For Vim version 8.2 and above
-Last change: May 14, 2020
+Last change: June 19, 2020
 
 ==============================================================================
 CONTENTS~
@@ -29,24 +29,28 @@ The Github repository for the Buffer Selector plugin is available at:
 ==============================================================================
 2. Installation					*bufselect-installation*
 
-To install this plugin on Linux, MacOS and other Unix-like systems:
+To install this plugin from the bufselect.zip file, unzip the files to the
+~/.vim/pack/downloads/start/bufselect directory:
 >
-    $ mkdir -p ~/.vim/pack/downloads/opt
-    $ cd ~/.vim/pack/downloads/opt
+    $ mkdir -p ~/.vim/pack/downloads/start/bufselect
+    $ cd ~/.vim/pack/downloads/start/bufselect
+    $ unzip ~/Downloads/bufselect.zip
+<
+To install this plugin on Linux, MacOS and other Unix-like systems from
+Github:
+>
+    $ mkdir -p ~/.vim/pack/downloads/start
+    $ cd ~/.vim/pack/downloads/start
     $ git clone https://github.com/yegappan/bufselect
 <
-To install this plugin on MS-Windows:
+To install this plugin on MS-Windows from Github:
 >
-    C:\> mkdir %HOMEPATH%\vimfiles\pack\downloads\opt
-    C:\> cd %HOMEPATH%\vimfiles\pack\downloads\opt
+    C:\> mkdir %HOMEPATH%\vimfiles\pack\downloads\start
+    C:\> cd %HOMEPATH%\vimfiles\pack\downloads\start
     C:\> git clone https://github.com/yegappan/bufselect
 <
-To load the plugin, add the following command to the ~/.vimrc file:
->
-    packadd bufselect
-<
 To uninstall the plugin, remove the bufselect directory from the
-$HOME/.vim/pack/downloads/opt directory.
+$HOME/.vim/pack/downloads/start directory.
 
 Refer to the Vim |packages| help topic for more information.
 
@@ -95,6 +99,12 @@ To display only buffer names containing a pattern with |wildcards|, you can
 pass the pattern to the :Bufselect command:
 >
     :BufSelect *.java
+<
+You can create a key mapping to toggle the buffer select popup menu. For
+example, to use <F2> to toggle the buffer select menu, add the following line
+to your .vimrc file:
+>
+    nmap <F2> <Plug>Bufselect_Toggle
 <
 ==============================================================================
 

@@ -1,7 +1,7 @@
 " File: bufselect.vim
 " Author: Yegappan Lakshmanan (yegappan AT yahoo DOT com)
-" Version: 1.0
-" Last Modified: May 14, 2020
+" Version: 1.1
+" Last Modified: June 19, 2020
 "
 " Plugin to display the list of buffers in a popup menu
 "
@@ -30,7 +30,7 @@ let s:filter_text = ''
 let s:popup_winid = -1
 
 " Edit the buffer selected from the popup menu
-func s:editBuffer(id, result)
+func s:editBuffer(id, result) abort
   if a:result <= 0
     return
   endif
@@ -51,7 +51,7 @@ endfunc
 
 " Sort two buffer names by the lastused timestamp, so that the latest used
 " buffer is at to the top
-func s:sortByLastUsed(i1, i2)
+func s:sortByLastUsed(i1, i2) abort
   let v1 = a:i1.lastused
   let v2 = a:i2.lastused
   return v1 == v2 ? 0 : v1 < v2 ? 1 : -1
@@ -59,7 +59,7 @@ endfunc
 
 " Convert each file name in the items List into <filename> (<dirname>) format.
 " Make sure the popup does't occupy the entire screen by reducing the width.
-func s:makeMenuName(items)
+func s:makeMenuName(items) abort
   let maxwidth = popup_getpos(s:popup_winid).core_width
   "let maxwidth = &columns - 30
 
@@ -81,7 +81,7 @@ endfunc
 
 " Handle the keys typed in the popup menu.
 " Narrow down the displayed names based on the keys typed so far.
-func s:filterNames(id, key)
+func s:filterNames(id, key) abort
   let update_popup = 0
   let key_handled = 0
 
@@ -153,7 +153,7 @@ func s:filterNames(id, key)
   return popup_filter_menu(a:id, a:key)
 endfunc
 
-func bufselect#showMenu(pat)
+func bufselect#showMenu(pat) abort
   " Get the list of buffer names to display. Use only listed buffers.
   let filter_cmd = 'v:val.name != ""'
   if a:pat != ''
@@ -188,6 +188,7 @@ func bufselect#showMenu(pat)
   let popupAttr.close = "button"
   let popupAttr.filter = function('s:filterNames')
   let popupAttr.callback = function('s:editBuffer')
+  let popupAttr.mapping = 1
   let s:popup_winid = popup_menu([], popupAttr)
 
   " Populate the popup menu
@@ -195,6 +196,17 @@ func bufselect#showMenu(pat)
   let items = copy(s:popup_text)
   call s:makeMenuName(items)
   call popup_settext(s:popup_winid, items)
+endfunc
+
+" Toggle (open or close) the bufselect popup menu
+func bufselect#toggle() abort
+  if empty(popup_getoptions(s:popup_winid))
+    " open the buf select popup
+    call bufselect#showMenu('')
+  else
+    " popup window is present. close it.
+    call popup_close(s:popup_winid, -2)
+  endif
 endfunc
 
 " restore 'cpo'
