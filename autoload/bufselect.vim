@@ -1,7 +1,7 @@
 " File: bufselect.vim
 " Author: Yegappan Lakshmanan (yegappan AT yahoo DOT com)
 " Version: 1.1
-" Last Modified: June 19, 2020
+" Last Modified: Sep 13, 2020
 "
 " Plugin to display the list of buffers in a popup menu
 "
