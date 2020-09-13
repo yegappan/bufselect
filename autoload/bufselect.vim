@@ -176,6 +176,7 @@ func bufselect#showMenu(pat) abort
 
   " Save it for later use
   let s:popup_text = copy(s:buflist)
+  let s:filter_text = ''
 
   " Create the popup menu
   let popupAttr = {}
