@@ -100,8 +100,8 @@ func s:filterNames(id, key) abort
         \ || a:key == "<C-End>"
     call win_execute(s:popup_winid, 'normal! ' .. a:key)
     let key_handled = 1
-  elseif a:key == "\<Up>"
-        \ || a:key == "\<Down>"
+  elseif a:key == "\<Up>" || a:key == "\k"
+        \ || a:key == "\<Down>" || a:key == "\j"
     " Use native Vim handling of these keys
     let key_handled = 0
   elseif a:key =~ '\f' || a:key == "\<Space>"
